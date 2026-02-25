@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ERP.Models.Staff> // make table dynamic 
+
+<!--responsive wrappr for table scrolls on small screens-->
+<div class="table-responsive border-bottom">
+    <!--Main table element with theme styling-->
+
+    <table class="table">
+
+        <!--Table header section(basically column titles)-->
+        <thead>
+            <tr> <!--Table row for headers-->
+                <th>ID</th> <!--Column 1: ID (primary key internal no need to show it but i did)-->
+                <th>Age</>
+                <th>Name</th> <!--Column 2: Staff Name-->
+                <th>Phone Number</th> <!--Column 3: Phone number -->
+            </tr>
+        </thead>
+
+            <!--Table body (data rows)-->
+            <tbody>
+            @foreach(var s in Model)
+            {
+                <tr>
+                    <td>@s.ID</td>
+                    <td>@s.Age</td>
+                    <td>@s.Name</td>
+                    <td>@s.PhoneNumber</td>
+                </tr>
+            }
+
+
+            </tbody>
+    </table> <!-- Table Structure ends-->
+</div> <!--responsive container ends-->
+
+<!--
+Earlier i hard coded table rows like how i did it for the table head (thead)
+Looping through the objects is better
+-->
