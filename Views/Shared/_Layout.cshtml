@@ -1,218 +1,57 @@
-﻿@*
-    FlatAdmin assets folder is placed under wwwroot.
-*@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+﻿<!DOCTYPE html>
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr"
+      data-theme="theme-default"
+      data-assets-path="~/assets/"
+      data-template="vertical-menu-template">
 <head>
-    <!-- Bootstrap (ADD THIS FIRST) -->
-    <link rel="stylesheet" href="~/assets/vendor/bootstrap.min.css" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>@ViewData["Title"] - ERP</title>
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="~/assets/vendor/simplebar.min.css" />
-    <link rel="stylesheet" href="~/assets/css/app.css" />
-    <link rel="stylesheet" href="~/assets/css/app.rtl.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-material-icons.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-material-icons.rtl.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-fontawesome-free.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-fontawesome-free.rtl.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-ion-rangeslider.css" />
-    <link rel="stylesheet" href="~/assets/css/vendor-ion-rangeslider.rtl.css" />
+    <link rel="icon" type="image/x-icon" href="~/assets/img/favicon/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/core.css" />
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/theme-default.css" />
+    <link rel="stylesheet" href="~/assets/css/demo.css" />
+    <link rel="stylesheet" href="~/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <script src="~/assets/vendor/js/helpers.js"></script>
+    <script src="~/assets/js/config.js"></script>
 </head>
-<body class="d-flex flex-column">
-    <!-- Navbar -->
-    <div class="navbar navbar-expand-sm navbar-main navbar-light bg-white pr-0" id="navbar">
-        <div class="container-fluid p-0">
-            <button class="navbar-toggler navbar-toggler-custom d-lg-none d-flex mr-navbar" type="button" data-toggle="sidebar">
-                <span class="material-icons">short_text</span>
-            </button>
-            <a href="@Url.Content("~/")" class="navbar-brand flex">
-                <span>ERP</span>
-            </a>
-            <form class="ml-auto search-form search-form--light d-none d-sm-flex flex" action="/">
-                <input type="text" class="form-control" placeholder="Search" />
-                <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
-            </form>
-            <ul class="nav navbar-nav d-none d-md-flex">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-                        <i class="material-icons nav-icon navbar-notifications-indicator">notifications</i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-notifications-menu">
-                        <div class="dropdown-item d-flex align-items-center py-2">
-                            <span class="flex navbar-notifications-menu__title m-0">Notifications</span>
-                            <a href="javascript:void(0)" class="text-muted"><small>Clear all</small></a>
+<body>
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+
+            @await Html.PartialAsync("_Sidebar")
+            @* Loads Views/Shared/_Sidebar.cshtml — sidebar is isolated here *@
+
+            <div class="layout-page">
+
+                @await Html.PartialAsync("_Navbar")
+                @* Loads Views/Shared/_Navbar.cshtml — navbar is isolated here *@
+
+                <div class="content-wrapper">
+                    @RenderBody()
+                    @* This is where Staff.cshtml / Index.cshtml / Create.cshtml get injected *@
+
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl py-2">
+                            &copy; @DateTime.Now.Year <strong>ERP System</strong>
                         </div>
-                        <div class="navbar-notifications-menu__content" data-simplebar>
-                            <div class="py-2">
-                                <div class="dropdown-item d-flex">
-                                    <div class="mr-3">
-                                        <div class="avatar avatar-sm" style="width:32px;height:32px;">
-                                            <img src="~/assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="flex">
-                                        <a href="">A.Demian</a> left a comment on <a href="">Stack</a><br />
-                                        <small class="text-muted">1 minute ago</small>
-                                    </div>
-                                </div>
-                                <div class="dropdown-item d-flex">
-                                    <div class="mr-3">
-                                        <a href="#">
-                                            <div class="avatar avatar-xs" style="width:32px;height:32px;">
-                                                <span class="avatar-title bg-purple rounded-circle">
-                                                    <i class="material-icons icon-16pt">person_add</i>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="flex">
-                                        New user <a href="#">Peter Parker</a> signed up.<br />
-                                        <small class="text-muted">1 hour ago</small>
-                                    </div>
-                                </div>
-                                <div class="dropdown-item d-flex">
-                                    <div class="mr-3">
-                                        <a href="#">
-                                            <div class="avatar avatar-xs" style="width:32px;height:32px;">
-                                                <span class="avatar-title rounded-circle">JD</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="flex">
-                                        <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br />
-                                        <div>Hey, how are you? What about our next meeting</div>
-                                        <small class="text-muted">2 minutes ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="javascript:void(0);" class="dropdown-item text-center navbar-notifications-menu__footer">View All</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" data-toggle="sidebar" class="nav-link d-flex align-items-center">
-                        <i class="material-icons nav-icon">event_note</i>
-                        <span class="badge badge-warning text-primary-dark rounded-circle badge-notifications">3</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="dropdown">
-                <a href="#" data-toggle="dropdown" data-caret="false" class="dropdown-toggle navbar-toggler navbar-toggler-company border-left d-flex align-items-center ml-navbar">
-                    <span class="rounded-circle"><span class="material-icons">business</span></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-company-menu">
-                    <div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
-                        <span class="mr-3">
-                            <img src="~/assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar" />
-                        </span>
-                        <span class="flex d-flex flex-column">
-                            <strong style="font-size:1.125rem;">Frontted</strong>
-                            <small class="text-muted text-uppercase">8 Users</small>
-                        </span>
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item d-flex align-items-center py-2" href="#"><span class="material-icons mr-2">settings</span> Settings</a>
-                    <a class="dropdown-item d-flex align-items-center py-2" href="#"><span class="material-icons mr-2">exit_to_app</span> Switch Company</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item d-flex align-items-center py-2" href="#"><span class="material-icons mr-2">add</span> New Company</a>
+                    </footer>
+                    <div class="content-backdrop fade"></div>
                 </div>
+
             </div>
         </div>
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <nav class="sidebar sidebar-light bg-white" style="min-width:250px;">
-            <ul class="sidebar-menu flex">
-                <li class="sidebar-menu-item active">
-                    <a class="sidebar-menu-button" href="@Url.Content("~/")">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
-                        <span class="sidebar-menu-text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" data-toggle="collapse" href="#pages_menu">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">description</i>
-                        <span class="sidebar-menu-text">Pages</span>
-                        <span class="badge badge-warning rounded-circle badge-notifications ml-auto" style="padding:.1875rem .375rem;">8</span>
-                        <span class="sidebar-menu-toggle-icon"></span>
-                    </a>
-                    <ul class="sidebar-submenu collapse" id="pages_menu">
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/edit-account")"><span class="sidebar-menu-text">Edit Account</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/appointments")"><span class="sidebar-menu-text">Appointments</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/properties")"><span class="sidebar-menu-text">Properties</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/blog")"><span class="sidebar-menu-text">Blog</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/trello")"><span class="sidebar-menu-text">Trello</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/chat")"><span class="sidebar-menu-text">Chat</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/course")"><span class="sidebar-menu-text">Course</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/tickets")"><span class="sidebar-menu-text">Tickets</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/login")"><span class="sidebar-menu-text">Login</span></a></li>
-                        <li class="sidebar-menu-item"><a class="sidebar-menu-button" href="@Url.Content("~/signup")"><span class="sidebar-menu-text">Sign up</span></a></li>
-                    </ul>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" data-toggle="collapse" href="#components_menu">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">developer_board</i>
-                        <span class="sidebar-menu-text">UI Elements</span>
-                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                    </a>
-                    <ul class="sidebar-submenu collapse" id="components_menu">
-                        <!-- Add UI elements submenu items here if needed -->
-                    </ul>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" href="@Url.Content("~/ui-charts")">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">donut_small</i>
-                        <span class="sidebar-menu-text">Charts</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" href="@Url.Content("~/ui-forms")">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">text_format</i>
-                        <span class="sidebar-menu-text">Forms</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" href="@Url.Content("~/fullcalendar")">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">date_range</i>
-                        <span class="sidebar-menu-text">Calendar</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button" href="@Url.Content("~/ui-vector-maps")">
-                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
-                        <span class="sidebar-menu-text">Vector Maps</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    @await Html.PartialAsync("_FooterScripts")
+    @* Loads Views/Shared/_FooterScripts.cshtml — all JS isolated here *@
 
-        <!-- Main content area -->
-        <main class="flex-grow-1">
-            <div class="container-fluid page__container">
-                @RenderBody()
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer scripts -->
-    <script src="~/assets/vendor/jquery.min.js"></script>
-    <script src="~/assets/vendor/popper.min.js"></script>
-    <script src="~/assets/vendor/bootstrap.min.js"></script>
-    <script src="~/assets/vendor/simplebar.min.js"></script>
-    <script src="~/assets/vendor/dom-factory.js"></script>
-    <script src="~/assets/vendor/material-design-kit.js"></script>
-    <script src="~/assets/vendor/ion.rangeSlider.min.js"></script>
-    <script src="~/assets/js/ion-rangeslider.js"></script>
-    <script src="~/assets/js/toggle-check-all.js"></script>
-    <script src="~/assets/js/check-selected-row.js"></script>
-    <script src="~/assets/js/dropdown.js"></script>
-    <script src="~/assets/js/sidebar-mini.js"></script>
-    <script src="~/assets/js/app.js"></script>
-    <script src="~/assets/js/app-settings.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

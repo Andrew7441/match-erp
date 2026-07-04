@@ -1,21 +1,25 @@
-﻿@model ERP.Models.Staff //
+﻿@model ERP.Models.Staff 
 
 <h2>Add Staff</h2> <!--Page title -->
 
 <form asp-action="Create" method="post"> <!--form that sends entered data to the create action in HC-->
 
     <label>Name</label> <!-- label for name field-->
-
     <input asp-for="Name" class="form-control" /> <!-- Input box bound to Staff.Name property -->
+    <span asp-validation-for="Name" class="text-danger d-block"></span> <!--add validation makes it necessary for user input-->
 
 
     <label>Age</label> 
     <input asp-for="Age" class="form-control" />
-
+    <span asp-validation-for="Age" class="text-danger d-block"></span> 
 
     <label>Phone</label>
     <input asp-for="PhoneNumber" class="form-control" />
+    <span asp-validation-for="PhoneNumber" class="text-danger d-block"></span>
 
+    <label>Income</label>
+    <input asp-for="income" class="form-control" />
+    <span asp-validation-for="income" class="text-danger d-block"></span>
 
     <button type="submit" class="btn btn-primary mt-2">
         <!-- Button that submits the form data to the server -->

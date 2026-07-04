@@ -1,39 +1,88 @@
-﻿@model IEnumerable<ERP.Models.Staff> // make table dynamic 
+﻿@model IEnumerable<ERP.Models.Staff>
+@* 
+    @model tells Razor this view expects a LIST of Staff objects from the controller.
+    The controller already does: var staff = _context.Staff.ToList(); return View(staff);
+*@
 
-<!--responsive wrappr for table scrolls on small screens-->
-<div class="table-responsive border-bottom">
-    <!--Main table element with theme styling-->
+<div class="container-xxl flex-grow-1 container-p-y">
 
-    <table class="table">
+    @* Page breadcrumb header *@
+    <h4 class="py-3 breadcrumb-wrapper mb-4">
+        <span class="text-muted fw-light">ERP /</span> Staff
+    </h4>
 
-        <!--Table header section(basically column titles)-->
-        <thead>
-            <tr> <!--Table row for headers-->
-                <th>ID</th> <!--Column 1: ID (primary key internal no need to show it but i did)-->
-                <th>Age</>
-                <th>Name</th> <!--Column 2: Staff Name-->
-                <th>Phone Number</th> <!--Column 3: Phone number -->
-            </tr>
-        </thead>
+    @* Frest Card wrapper: gives the table the white card look with shadow *@
+    <div class="card">
 
-            <!--Table body (data rows)-->
-            <tbody>
-            @foreach(var s in Model)
-            {
-                <tr>
-                    <td>@s.ID</td>
-                    <td>@s.Age</td>
-                    <td>@s.Name</td>
-                    <td>@s.PhoneNumber</td>
-                </tr>
-            }
+        @* Card header: title on left, Add button on right *@
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Staff Table</h5>
+            <a href="@Url.Action("Create", "Home")" class="btn btn-primary btn-sm">
+                <i class="bx bx-plus me-1"></i> Add Staff
+            </a>
+        </div>
 
+        @* table-responsive: adds horizontal scroll on small screens
+           text-nowrap: stops cell content from wrapping to next line *@
+        <div class="table-responsive text-nowrap">
+            <table class="table">
 
-            </tbody>
-    </table> <!-- Table Structure ends-->
-</div> <!--responsive container ends-->
+                @* THEAD: static column headers, matches Staff entity properties *@
+                <thead>    
+                    <tr>
+                        <th>ID</th>       @* → Staff.ID (Primary Key) *@
+                        <th>Name</th>     @* → Staff.Name *@
+                        <th>Age</th>      @* → Staff.Age *@
+                        <th>Phone</th>    @* → Staff.PhoneNumber *@
+                        <th>Income</th>   @* → Staff.income *@
+                        <th>Actions</th>  @* Edit/Delete buttons *@
+                    </tr>
+                </thead>
 
-<!--
-Earlier i hard coded table rows like how i did it for the table head (thead)
-Looping through the objects is better
--->
+                @* TBODY: dynamic rows from Azure SQL via EF Core *@
+                @* table-border-bottom-0: Frest class that removes border on last row *@
+                <tbody class="table-border-bottom-0">
+
+                    @foreach (var s in Model)
+                    @*
+                        Model = the List<Staff> passed from HomeController.Staff()
+                        Each iteration of s = one row from dbo.Staff in Azure
+                    *@
+                    {
+                        <tr>
+                            <td>@s.ID</td>
+                            <td><span class="fw-medium">@s.Name</span></td>
+                            <td>@s.Age</td>
+                            <td>@s.PhoneNumber</td>
+                            <td>@s.income.ToString("C")</td>
+                            @* .ToString("C") formats decimal as currency e.g. $1,200.00 *@
+
+                            @* Actions column: Frest dropdown with Edit & Delete *@
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button"
+                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                           href="@Url.Action("Edit", "Home", new { id = s.ID })">
+                                            <i class="bx bx-edit-alt me-1"></i> Edit
+                                        </a>
+                                        <a class="dropdown-item text-danger"
+                                           href="@Url.Action("Delete", "Home", new { id = s.ID })">
+                                            <i class="bx bx-trash me-1"></i> Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

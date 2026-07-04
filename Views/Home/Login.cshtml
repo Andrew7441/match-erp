@@ -1,0 +1,49 @@
+﻿@model ERP.Models.User // Binds view to User model, enables asp-for on Email and Password 
+@{
+    Layout = null; // Removes sidebar and navbar, shows raw login page only 
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/core.css" />
+    <link rel="stylesheet" href="~/assets/vendor/css/rtl/theme-default.css" />
+</head>
+<body>
+    <div class="container mt-5" style="max-width:400px;">
+
+        <h2>Login</h2> 
+
+        <!-- Posts Email and Password to HomeController.Login(User user) -->
+        <form asp-action="Login" method="post">
+
+            <!--Shows model-level errors like invalid username/pw -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <label>Email</label>
+
+            <!-- form-control: Bootstrap class, full width input with padding and border -->
+            <input asp-for="Email" class="form-control" />
+            
+            <!-- Shows red validation error if Email is empty or invalid -->
+            <span asp-validation-for="Email" class="text-danger d-block"></span>
+
+            <label>Password</label>
+            
+            <!-- type="password" masks characters as user types -->
+            <input asp-for="Password" class="form-control" type="password" />
+            
+            <span asp-validation-for="Password" class="text-danger d-block"></span>
+
+            <!-- mt-2: Bootstrap margintop spacing above the button -->
+            <button type="submit" class="btn btn-primary mt-2">Login</button>
+            
+            <p class=" = "mt-3">
+                Dont have an account?
+                <a asp-action="Register">Create account</a>
+            </p>
+
+        </form>
+    </div>
+</body>
+</html>

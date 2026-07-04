@@ -7,12 +7,12 @@ namespace ERP.Models
 {
     public class Staff
     {
+        [Key]
         public int ID { get; set; } // Primary Key
 
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = string.Empty; // Field 1 
-
 
         [Required]
         [MaxLength(2)]
@@ -20,6 +20,8 @@ namespace ERP.Models
 
         [MaxLength(20)]
         public string PhoneNumber { get; set; } = string.Empty; // Field 2
+
+        public decimal income { get; set; }
 
     }
 }

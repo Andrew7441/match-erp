@@ -10,7 +10,14 @@ builder.Services.AddControllersWithViews();
 //ApplicationDbContext registers Db service in the app
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sql => sql.EnableRetryOnFailure()));
-            //tells EF to use SQL server
+//tells EF to use SQL server
+
+//Authentication - custom session - based authentication
+//registers session service - allows app to store temporary user data between requests 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
             
 var app = builder.Build();
 
@@ -25,10 +32,17 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+//Authentication - enables session middleware in the request pipeline
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
+//enables api routes /api/staff
+app.MapControllers();
+
+//HomeCOntroller becomes - /Home/
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
