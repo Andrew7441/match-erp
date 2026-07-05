@@ -18,6 +18,7 @@ A learning ERP backend project built with ASP.NET Core MVC, REST APIs, Entity Fr
 - ASP.NET Core Web API
 - Entity Framework Core
 - Azure SQL Database
+- LINQ
 - SQL Server Management Studio
 - Postman
 
